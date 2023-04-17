@@ -1,5 +1,7 @@
 #include "MyBot.h"
 #include <dpp/dpp.h>
+#include <fstream>
+#include <iostream>
 
 /* Be sure to place your token in the line below.
  * Follow steps here to get a token:
@@ -8,10 +10,21 @@
  * scopes 'bot' and 'applications.commands', e.g.
  * https://discord.com/oauth2/authorize?client_id=940762342495518720&scope=bot+applications.commands&permissions=139586816064
  */
-const std::string    BOT_TOKEN    = "add your token here";
+const std::string botTokenPath = "..\\botToken.txt";
+
+std::string GetBotToken()
+{
+    std::string returnTokenKey;
+    std::ifstream tokenFile(botTokenPath);
+    std::getline(tokenFile, returnTokenKey);
+    return returnTokenKey;
+}
 
 int main()
 {
+    // Get token
+    const std::string BOT_TOKEN = GetBotToken();
+
     /* Create bot cluster */
     dpp::cluster bot(BOT_TOKEN);
 
